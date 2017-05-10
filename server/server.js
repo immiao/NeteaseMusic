@@ -45,7 +45,7 @@ var linksElement = ulElement.getElementsByTagName('a');
       music.songid = linksElement[i].attributes[0].value.replace('/song?id=', '');
       songlist.push(music);
     }
-    console.log(songlist)
+    //console.log(songlist)
     return songlist;
   }
   return undefined;
@@ -80,6 +80,6 @@ app.get('/songurl', function (req, res) {
   res.send(getSongUrl(req.query.songid))
 })
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!')
+app.listen(80, function () {
+  console.log('Netease Music listening on port 80!')
 })
