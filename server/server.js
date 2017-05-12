@@ -3,6 +3,8 @@ var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest
 var app = express()
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
+const fs = require('fs');
+const bodyParser = require('body-parser');
 
 
 
@@ -65,6 +67,7 @@ function getSongUrl(songid) {
 	return undefined;
 }
 
+app.use(bodyParser.json());
 app.use('/', express.static('static'))
 app.set('view engine', 'pug')
 
@@ -76,8 +79,13 @@ app.get('/songlist', function (req, res) {
   res.send(getSongList(req.query.playlistid))
 })
 
-app.get('/songurl', function (req, res) {
-  res.send(getSongUrl(req.query.songid))
+app.post('/songurl', function (req, res) {
+	var output = new Date() + ', ' + req.ip + ', ' + req.body.title + ', ' + req.body.author + '\n';
+	fs.appendFile('record.log', output, (err) => {
+		if (err) 
+			console.log(new Date() + ': Appending data error');
+	});
+	res.send(getSongUrl(req.query.songid))
 })
 
 app.listen(80, function () {

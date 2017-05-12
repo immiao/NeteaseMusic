@@ -482,12 +482,16 @@ class APlayer {
             // }
             var xhr = new XMLHttpRequest();
             var url = location.protocol + '//' + location.host + "/songurl?songid=" + this.music.songid;
-            xhr.open('GET', url, false);
-            xhr.send();
+            xhr.open('POST', url, false);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            var body = {};
+            body.title = this.music.title;
+            body.author = this.music.author;
+            xhr.send(JSON.stringify(body));
             if (xhr.status == 200) {
               this.audio.src = xhr.responseText;
             }
-            
+
            // this.audio.src = this.music.url;
             this.audio.preload = this.option.preload ? this.option.preload : 'auto';
 
