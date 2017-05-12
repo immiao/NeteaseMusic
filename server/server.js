@@ -76,14 +76,20 @@ app.get('/play', function (req, res) {
 })
 
 app.get('/songlist', function (req, res) {
-  res.send(getSongList(req.query.playlistid))
+	var output = new Date() + ', ' + req.ip + ', ' + req.query.playlistid + '\n';
+
+	fs.appendFile('songlist.log', output, (err) => {
+	if (err) 
+		console.log(new Date() + ': record.log appending data error');
+	});
+ 	res.send(getSongList(req.query.playlistid))
 })
 
 app.post('/songurl', function (req, res) {
 	var output = new Date() + ', ' + req.ip + ', ' + req.body.title + ', ' + req.body.author + '\n';
 	fs.appendFile('record.log', output, (err) => {
 		if (err) 
-			console.log(new Date() + ': Appending data error');
+			console.log(new Date() + ': record.log appending data error');
 	});
 	res.send(getSongUrl(req.query.songid))
 })
