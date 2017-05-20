@@ -41,6 +41,9 @@
   },
   "dependencies": {
     "express": "^4.15.2",
-    "pug": "^2.0.0-rc.1"
+    "pug": "^2.0.0-rc.1",
+    "xmlhttprequest": "^1.8.0",
+    "jsdom": "^10.0.1",
+    "body-parser": "^1.17.2"
   }
 }

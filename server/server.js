@@ -62,6 +62,8 @@ function getSongUrl(songid) {
 	// console.log('200 OK');
 	// console.log(xhr.responseText);
 		var json = JSON.parse(xhr.responseText);
+    if (json.songs[0].mp3Url == undefined)
+      return undefined;
 		return json.songs[0].mp3Url.replace('http://m', 'http://p');
 	}
 	return undefined;
